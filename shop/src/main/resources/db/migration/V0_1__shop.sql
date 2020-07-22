@@ -98,6 +98,24 @@ ALTER TABLE order_detail
      REFERENCES product(id);
 
 
+DROP TABLE IF EXISTS stock;
+
+CREATE TABLE stock(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   product INT,
+   location INT,
+   quantity INT NOT NULL
+);
+
+ALTER TABLE stock
+     ADD FOREIGN KEY (product)
+     REFERENCES product(id);
+
+ALTER TABLE stock
+     ADD FOREIGN KEY (location)
+     REFERENCES location(id);
+
+
 DROP TABLE IF EXISTS revenue;
 
 CREATE TABLE revenue(
