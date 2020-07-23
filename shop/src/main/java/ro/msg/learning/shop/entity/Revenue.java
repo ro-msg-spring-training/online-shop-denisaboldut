@@ -11,7 +11,7 @@ import java.util.Date;
 public class Revenue extends BaseEntity {
 
     @ManyToOne (targetEntity = Location.class)
-    @JoinColumn(name="id",insertable = false, updatable = false)
+    @JoinColumn(name="location_id")
     private Location location;
 
     private Date localDate;

@@ -2,7 +2,8 @@ package ro.msg.learning.shop.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import ro.msg.learning.shop.entity.Stock;
 
 @Repository
-public interface Supplier extends JpaRepository<Supplier,Long> {
+public interface StockRepository extends JpaRepository<Stock,Long> {
 }

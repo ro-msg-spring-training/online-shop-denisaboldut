@@ -19,14 +19,16 @@ public class Product extends BaseEntity {
 
     private double weight;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id",insertable = false, updatable = false)
+    @JoinColumn(name="category")
     private ProductCategory productCategory;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id",insertable = false, updatable = false)
+    @JoinColumn(name="supplier")
     private Supplier supplier;
 
+    @Column(name = "image_url")
     private String imageUrl;
 
     @OneToMany (mappedBy = "product",

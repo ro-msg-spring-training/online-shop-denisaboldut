@@ -13,11 +13,11 @@ import java.util.List;
 public class Order extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id", insertable = false, updatable = false)
+    @JoinColumn(name="location_id")
     private Location location;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id",insertable = false, updatable = false)
+    @JoinColumn(name="customer_id")
     private Customer customer;
 
     private Date createdAt;
