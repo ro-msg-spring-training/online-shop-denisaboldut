@@ -17,6 +17,7 @@ public class Supplier extends BaseEntity {
               fetch = FetchType.LAZY,
               cascade = CascadeType.ALL,
               orphanRemoval = true)
+    @Transient
     private List<Product> products=new ArrayList<>();
 
     public Supplier(){

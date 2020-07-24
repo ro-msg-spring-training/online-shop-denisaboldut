@@ -31,17 +31,21 @@ public class Product extends BaseEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
+
     @OneToMany (mappedBy = "product",
                  fetch = FetchType.LAZY,
                  cascade = CascadeType.ALL,
                  orphanRemoval = true)
-    private List<Stock> stocks = new ArrayList<>();
+    @Transient
+    private List<Stock> stocks;
+
 
     @OneToMany (mappedBy = "product",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<OrderDetail> orderDetails = new ArrayList<>();
+    @Transient
+    private List<OrderDetail> orderDetails;
 
     public Product(){
 

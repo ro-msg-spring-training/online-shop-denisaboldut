@@ -10,11 +10,11 @@ import javax.persistence.*;
 public class Stock extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="product_id")
+    @JoinColumn(name="product")
     private Product product;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="location_id")
+    @JoinColumn(name="location")
     private Location location;
 
     private int quantity;

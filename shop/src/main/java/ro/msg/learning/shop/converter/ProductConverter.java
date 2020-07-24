@@ -9,7 +9,9 @@ import ro.msg.learning.shop.entity.Supplier;
 import ro.msg.learning.shop.repository.ProductCategoryRepository;
 import ro.msg.learning.shop.repository.SupplierRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -36,7 +38,14 @@ public class ProductConverter {
 
         productDto.setSupplierName(product.getSupplier().getName());
 
+        productDto.setIdCategory(product.getProductCategory().getId());
+        productDto.setIdSupplier(product.getSupplier().getId());
+
         return productDto;
+    }
+
+    public List<ProductDto> convertAllToDto(List<Product> products){
+        return products.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     public Product convertToEntity(ProductDto productDto) {

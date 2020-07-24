@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ro.msg.learning.shop.entity.Product;
 import ro.msg.learning.shop.repository.ProductRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,14 +25,17 @@ public class ProductServiceImpl implements ProductService {
         return optionalProduct.orElse(null);
     }
 
+    @Transactional
     public Product createProduct(Product product){
          return productRepository.save(product);
     }
 
+    @Transactional
     public void deleteProduct(Product product){
-         productRepository.delete(product);
+        productRepository.delete(product);
     }
 
+    @Transactional
     public boolean updateProduct(Product product){
         Optional<Product> optionalProduct;
         optionalProduct = productRepository.findById(product.getId());
