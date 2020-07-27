@@ -20,18 +20,21 @@ public class Location extends BaseEntity {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @Transient
     private List<Stock> stocks = new ArrayList<>();
 
     @OneToMany (mappedBy = "location",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @Transient
     private List<Order> orders=new ArrayList<>();
 
     @OneToMany (mappedBy = "location",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @Transient
     private List<Revenue> revenues = new ArrayList<>();
 
     public Location(){

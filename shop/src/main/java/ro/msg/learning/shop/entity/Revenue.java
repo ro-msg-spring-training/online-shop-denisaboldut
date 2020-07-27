@@ -10,7 +10,7 @@ import java.util.Date;
 @Table(name = "revenue")
 public class Revenue extends BaseEntity {
 
-    @ManyToOne (targetEntity = Location.class)
+    @ManyToOne
     @JoinColumn(name="location")
     private Location location;
 

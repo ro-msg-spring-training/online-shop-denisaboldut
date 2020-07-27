@@ -9,11 +9,11 @@ import javax.persistence.*;
 @Table(name = "order_detail")
 public class OrderDetail extends BaseEntity {
 
-    @ManyToOne(targetEntity = Order.class)
+    @ManyToOne
     @JoinColumn(name="orderShop")
     private Order orderShop;
 
-    @ManyToOne(targetEntity = Product.class)
+    @ManyToOne
     @JoinColumn(name="product")
     private Product product;
 

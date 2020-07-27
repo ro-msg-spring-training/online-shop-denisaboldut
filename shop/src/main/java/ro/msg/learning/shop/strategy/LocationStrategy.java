@@ -6,5 +6,5 @@ import ro.msg.learning.shop.dto.ProductOrderedDto;
 import java.util.List;
 
 public interface LocationStrategy {
-    List<ProductOrderedDto> selectLocation(OrderDto orderDto);
+    List<ProductOrderedDto> selectLocation(OrderDto orderDto) throws Exception;
 }

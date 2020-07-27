@@ -1,7 +1,6 @@
 package ro.msg.learning.shop.strategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ro.msg.learning.shop.dto.OrderDto;
 import ro.msg.learning.shop.dto.ProductOrderedDto;
 import ro.msg.learning.shop.entity.Location;
@@ -11,12 +10,10 @@ import ro.msg.learning.shop.repository.LocationRepository;
 import ro.msg.learning.shop.repository.ProductRepository;
 import ro.msg.learning.shop.repository.StockRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
+
 public class SingleLocation implements LocationStrategy {
 
     @Autowired
@@ -30,26 +27,37 @@ public class SingleLocation implements LocationStrategy {
 
 
     @Override
-    public List<ProductOrderedDto> selectLocation(OrderDto orderDto) {
+    public List<ProductOrderedDto> selectLocation(OrderDto orderDto) throws Exception {
         List<ProductOrderedDto> productsOrdered = new ArrayList<>();
 
-        List<Optional<Product>> products = orderDto.getOrderDetails().stream().map(ord -> productRepository.findById(ord.getIdProduct())).collect((Collectors.toList()));
+        List<Product> products = orderDto.getOrderDetails()
+                                    .stream()
+                                    .map(ord -> productRepository.findById(ord.getIdProduct()).get())
+                                    .collect((Collectors.toList()));
 
         List<Location> locations = locationRepository.findAll();
-        //locations.stream().map(loc-> loc.getStocks().stream().map(stock -> stock.getProduct().getId().equals( products.stream().map(pr->pr.get().getId()))).collect(Collectors.toList());
 
-        for (Optional<Product> product : products) {
+        for (Product product : products) {
             for (Location location : locations) {
-                for (Stock stock : location.getStocks()) {
-                    if (stock.getProduct().getId().equals(product.get().getId())) {
+
+                List<Product> productsInStock = location.getStocks()
+                                                            .stream()
+                                                            .map(Stock::getProduct)
+                                                            .collect(Collectors.toList());
+
+                boolean containAll = productsInStock.containsAll(products);
+
+                    if (containAll) {
                         ProductOrderedDto productOrderedDto = new ProductOrderedDto();
-                        productOrderedDto.setProduct(product.get());
+                        productOrderedDto.setProduct(product);
                         productOrderedDto.setLocation(location);
+
                         productsOrdered.add(productOrderedDto);
+                    }else{
+                        throw new Exception();
                     }
                 }
             }
-        }
         return productsOrdered;
     }
 }

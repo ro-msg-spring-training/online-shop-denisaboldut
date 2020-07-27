@@ -29,6 +29,7 @@ public class Order extends BaseEntity {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @Transient
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
     public Order(){
