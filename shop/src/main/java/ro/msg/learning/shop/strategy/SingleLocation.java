@@ -51,7 +51,7 @@ public class SingleLocation implements LocationStrategy {
                         ProductOrderedDto productOrderedDto = new ProductOrderedDto();
                         productOrderedDto.setProduct(product);
                         productOrderedDto.setLocation(location);
-
+                        productOrderedDto.setQuantity(stockRepository.findById(location.getId()).get().getQuantity());
                         productsOrdered.add(productOrderedDto);
                     }else{
                         throw new Exception();

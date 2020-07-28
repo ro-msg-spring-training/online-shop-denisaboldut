@@ -1,12 +1,15 @@
 package ro.msg.learning.shop.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.msg.learning.shop.dto.OrderDto;
 import ro.msg.learning.shop.dto.ProductOrderedDto;
 import ro.msg.learning.shop.entity.Address;
+import ro.msg.learning.shop.entity.Location;
 import ro.msg.learning.shop.entity.Order;
 import ro.msg.learning.shop.entity.OrderDetail;
+import ro.msg.learning.shop.repository.LocationRepository;
 import ro.msg.learning.shop.repository.OrderRepository;
 import ro.msg.learning.shop.strategy.LocationStrategy;
 
@@ -16,13 +19,15 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 
-    @Autowired
-    LocationStrategy locationStrategy;
 
-    @Autowired
-    OrderRepository orderRepository;
+    private final LocationStrategy locationStrategy;
+
+    private final OrderRepository orderRepository;
+
+    private final LocationRepository locationRepository;
 
     public Order createOrder(OrderDto orderDto) {
         Logger logger = Logger.getLogger(OrderServiceImpl.class.getName());
@@ -51,7 +56,12 @@ public class OrderServiceImpl implements OrderService{
                                                 .map(detail->new OrderDetail(order,detail.getProduct(),detail.getQuantity()))
                                                 .collect(Collectors.toList());
 
+        List<Location> locationsValid = productOrderedDtoList
+                                            .stream()
+                                            .map(ProductOrderedDto::getLocation).collect(Collectors.toList());
+
         order.setOrderDetails(orderDetails);
+        order.setLocation(locationRepository.findFirstByOrderByIdAsc());
 
         orderRepository.save(order);
 

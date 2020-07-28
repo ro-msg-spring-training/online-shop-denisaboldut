@@ -60,4 +60,17 @@ public class Product extends BaseEntity {
         this.supplier = supplier;
         this.imageUrl = imageUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", weight=" + weight +
+                ", productCategory=" + productCategory +
+                ", supplier=" + supplier +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }

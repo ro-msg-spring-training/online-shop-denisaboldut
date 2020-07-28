@@ -45,4 +45,12 @@ public class Location extends BaseEntity {
         this.name = name;
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "name='" + name + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }

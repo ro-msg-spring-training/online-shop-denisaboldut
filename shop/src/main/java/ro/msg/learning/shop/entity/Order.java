@@ -42,4 +42,14 @@ public class Order extends BaseEntity {
         this.createdAt = createdAt;
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "location=" + location +
+                ", customer=" + customer +
+                ", createdAt=" + createdAt +
+                ", address=" + address +
+                '}';
+    }
 }

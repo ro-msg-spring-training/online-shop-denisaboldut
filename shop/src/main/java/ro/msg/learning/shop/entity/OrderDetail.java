@@ -1,5 +1,6 @@
 package ro.msg.learning.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ public class OrderDetail extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name="orderShop")
+    @JsonIgnore
     private Order orderShop;
 
     @ManyToOne
