@@ -6,4 +6,5 @@ import ro.msg.learning.shop.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
+    Customer findFirstByOrderByIdAsc();
 }

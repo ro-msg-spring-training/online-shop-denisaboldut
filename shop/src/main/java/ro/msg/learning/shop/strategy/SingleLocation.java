@@ -1,5 +1,6 @@
 package ro.msg.learning.shop.strategy;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import ro.msg.learning.shop.dto.OrderDto;
 import ro.msg.learning.shop.dto.ProductOrderedDto;
@@ -13,17 +14,14 @@ import ro.msg.learning.shop.repository.StockRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+@RequiredArgsConstructor
 public class SingleLocation implements LocationStrategy {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private StockRepository stockRepository;
+    private final StockRepository stockRepository;
 
-    @Autowired
-    private LocationRepository locationRepository;
+    private final LocationRepository locationRepository;
 
 
     @Override
@@ -47,7 +45,7 @@ public class SingleLocation implements LocationStrategy {
 
                 boolean containAll = productsInStock.containsAll(products);
 
-                    if (containAll) {
+                    if (!containAll) {
                         ProductOrderedDto productOrderedDto = new ProductOrderedDto();
                         productOrderedDto.setProduct(product);
                         productOrderedDto.setLocation(location);

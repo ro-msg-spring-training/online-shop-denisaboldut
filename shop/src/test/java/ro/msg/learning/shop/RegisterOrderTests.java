@@ -51,23 +51,6 @@ class RegisterOrderTests {
 
 
 	@Test
-	void savedOrderHasCustomer() throws ParseException {
-		Customer customer = new Customer("Andrei","Pop","andreipop","andrei123","andreipop@yahoo.com");
-		Address address = new Address("Romania","Brasov","Fericirii");
-		Location location = new Location("Troc", address);
-		String sDate="28/07/2020";
-		Date date=new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
-
-		Order order = new Order(location,customer,date,address);
-
-		when(orderRepository.save(any(Order.class))).thenReturn(order);
-
-		Order savedOrder = orderRepository.save(order);
-
-		assertThat(savedOrder.getCustomer()).isNotNull();
-	}
-
-	@Test
 	void singleLocationStrategy() throws ParseException {
 		OrderDto orderDto = new OrderDto();
 		OrderDetailDto orderDetailDto = new OrderDetailDto();

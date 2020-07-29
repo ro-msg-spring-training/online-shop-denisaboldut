@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 
-
     private final LocationStrategy locationStrategy;
 
     private final OrderRepository orderRepository;
@@ -66,10 +65,10 @@ public class OrderServiceImpl implements OrderService{
         orderRepository.save(order);
 
         //update stock
-        for(OrderDetail orderDetail:orderDetails){
-            orderRepository.findById(order.getId()).get().getLocation().getStocks()
-                    .forEach(stock -> stock.setQuantity(stock.getQuantity()-orderDetail.getQuantity()));
-        }
+       // for(OrderDetail orderDetail:orderDetails){
+         //   orderRepository.findById(order.getId()).get().getLocation().getStocks()
+         //           .forEach(stock -> stock.setQuantity(stock.getQuantity()-orderDetail.getQuantity()));
+       // }
 
     return order;
     }

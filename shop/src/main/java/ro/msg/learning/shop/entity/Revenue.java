@@ -14,6 +14,7 @@ public class Revenue extends BaseEntity {
     @JoinColumn(name="location")
     private Location location;
 
+    @Column(name = "date_revenue")
     private Date localDate;
 
     private double sumTotal;

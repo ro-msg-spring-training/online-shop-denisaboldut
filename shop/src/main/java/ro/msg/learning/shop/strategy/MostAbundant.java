@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.strategy;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import ro.msg.learning.shop.dto.OrderDto;
 import ro.msg.learning.shop.dto.ProductOrderedDto;
@@ -14,16 +15,14 @@ import ro.msg.learning.shop.repository.StockRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+@RequiredArgsConstructor
 public class MostAbundant implements LocationStrategy {
-    @Autowired
-    private ProductRepository productRepository;
 
-    @Autowired
-    private StockRepository stockRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private LocationRepository locationRepository;
+    private final StockRepository stockRepository;
+
+    private final LocationRepository locationRepository;
 
 
     @Override
