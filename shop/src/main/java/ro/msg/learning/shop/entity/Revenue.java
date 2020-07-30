@@ -1,11 +1,14 @@
 package ro.msg.learning.shop.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "revenue")
 public class Revenue extends BaseEntity {
@@ -19,13 +22,4 @@ public class Revenue extends BaseEntity {
 
     private double sumTotal;
 
-    public Revenue(){
-
-    }
-
-    public Revenue(Location location, Date localDate, double sumTotal) {
-        this.location = location;
-        this.localDate = localDate;
-        this.sumTotal = sumTotal;
-    }
 }

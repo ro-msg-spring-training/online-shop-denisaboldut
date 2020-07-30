@@ -1,13 +1,19 @@
 package ro.msg.learning.shop.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = "orderDetails", callSuper = false)
+@ToString(exclude = "orderDetails")
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="order_shop")
 public class Order extends BaseEntity {
@@ -20,7 +26,7 @@ public class Order extends BaseEntity {
     @JoinColumn(name="customer")
     private Customer customer;
 
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Embedded
     private Address address;
@@ -32,24 +38,4 @@ public class Order extends BaseEntity {
     @Transient
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
-    public Order(){
-
-    }
-
-    public Order(Location location, Customer customer, Date createdAt, Address address) {
-        this.location = location;
-        this.customer = customer;
-        this.createdAt = createdAt;
-        this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "location=" + location +
-                ", customer=" + customer +
-                ", createdAt=" + createdAt +
-                ", address=" + address +
-                '}';
-    }
 }

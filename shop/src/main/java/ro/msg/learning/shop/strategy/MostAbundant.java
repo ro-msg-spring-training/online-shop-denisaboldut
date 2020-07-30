@@ -26,7 +26,7 @@ public class MostAbundant implements LocationStrategy {
 
 
     @Override
-    public List<ProductOrderedDto> selectLocation(OrderDto orderDto) throws Exception {
+    public List<ProductOrderedDto> selectLocation(OrderDto orderDto) throws NoSuchElementException {
         List<ProductOrderedDto> productsOrdered = new ArrayList<>();
 
         List<Product> products = orderDto
@@ -48,7 +48,7 @@ public class MostAbundant implements LocationStrategy {
                     .getProduct().getName()
                     .equals(product.getName())  ){
 
-               Stock maxStock = stocks.stream().max(Comparator.comparing(Stock::getQuantity)).orElseThrow(Exception::new);
+               Stock maxStock = stocks.stream().max(Comparator.comparing(Stock::getQuantity)).orElseThrow(NoSuchElementException::new);
 
                ProductOrderedDto productOrderedDto =new ProductOrderedDto();
                productOrderedDto.setLocation(maxStock.getLocation());

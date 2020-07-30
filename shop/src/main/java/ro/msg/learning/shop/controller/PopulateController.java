@@ -1,18 +1,18 @@
 package ro.msg.learning.shop.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ro.msg.learning.shop.service.PopulateService;
 
-@ActiveProfiles("test")
+@Profile("test")
 @RestController
+@RequiredArgsConstructor
 public class PopulateController {
 
-    @Autowired
-    private PopulateService populateService;
+    private final PopulateService populateService;
 
     @PostMapping("/data")
     void populatingDatabase() {

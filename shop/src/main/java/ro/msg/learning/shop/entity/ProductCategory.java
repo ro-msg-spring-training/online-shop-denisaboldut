@@ -1,12 +1,16 @@
 package ro.msg.learning.shop.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(exclude = "products", callSuper = false)
+@ToString(exclude = "products")
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "product_category")
 public class ProductCategory extends BaseEntity {
@@ -22,12 +26,4 @@ public class ProductCategory extends BaseEntity {
     @Transient
     private List<Product> products=new ArrayList<>();
 
-    public ProductCategory(){
-
-    }
-
-    public ProductCategory(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
 }

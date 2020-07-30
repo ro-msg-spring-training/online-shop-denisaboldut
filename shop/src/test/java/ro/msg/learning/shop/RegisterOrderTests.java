@@ -13,14 +13,11 @@ import ro.msg.learning.shop.repository.LocationRepository;
 import ro.msg.learning.shop.repository.OrderRepository;
 import ro.msg.learning.shop.repository.ProductRepository;
 import ro.msg.learning.shop.service.OrderService;
-import ro.msg.learning.shop.service.OrderServiceImpl;
 import ro.msg.learning.shop.strategy.LocationStrategy;
 import ro.msg.learning.shop.strategy.MostAbundant;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +32,7 @@ class RegisterOrderTests {
 	private OrderRepository orderRepository;
 
 	@InjectMocks
-	private OrderServiceImpl orderService;
+	private OrderService orderService;
 
 	@Mock
 	private LocationRepository locationRepository;
@@ -51,7 +48,7 @@ class RegisterOrderTests {
 
 
 	@Test
-	void singleLocationStrategy() throws ParseException {
+	void singleLocationStrategy()  {
 		OrderDto orderDto = new OrderDto();
 		OrderDetailDto orderDetailDto = new OrderDetailDto();
 		List<OrderDetailDto> orderDetailDtoList = new ArrayList<>();
@@ -59,30 +56,28 @@ class RegisterOrderTests {
 		List<Order> orders = new ArrayList<>();
 		List<Stock> stocks = new ArrayList<>();
 
-		String sDate="28/07/2020";
-		Date date=new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
+		LocalDate date = LocalDate.of(2020, 7, 30);
 
 		orderDto.setStreetAddress("street");
 		orderDto.setCreatedAt(date);
 		orderDto.setCountry("Romania");
 		orderDto.setCity("Trd");
 
-		orderDetailDto.setIdProduct((long) 1);
 		orderDetailDto.setQuantity(100);
 		orderDetailDtoList.add(orderDetailDto);
 		orderDto.setOrderDetails(orderDetailDtoList);
 
 		Address address = new Address("Romania","Brasov","TRt");
 
-		Location location = new Location("A",address);
+		Location location = new Location("A",address,null,null,null);
 
-		Customer customer = new Customer("Andrei","Pop","andreipop","andrei123","andreipop@yahoo.com");
+		Customer customer = new Customer("Andrei","Pop","andreipop","andrei123","andreipop@yahoo.com",null);
 
-		Order order = new Order(location,customer,date,address);
+		Order order = new Order(location,customer,date,address,null);
 		orders.add(order);
 		location.setOrders(orders);
 
-		Product product = new Product("ad","description",2.3,4.6,null,null,"imagepath");
+		Product product = new Product("ad","description",2.3,4.6,null,null,"imagepath",null,null);
 
 		Stock stock = new Stock(product,location,234);
 		stocks.add(stock);
@@ -90,8 +85,6 @@ class RegisterOrderTests {
 
 		locations.add(location);
 
-		//when(locationRepository.findAll()).thenReturn(locations);
-		//when(productRepository.findById((long) 1)).thenReturn(java.util.Optional.of(product));
 		when(locationRepository.findFirstByOrderByIdAsc()).thenReturn(location);
 
 		Order createdOrder= orderService.createOrder(orderDto);
@@ -101,24 +94,19 @@ class RegisterOrderTests {
 	}
 
 	@Test
-	void mostAbundantStrategy() throws Exception {
+	void mostAbundantStrategy(){
 
 		OrderDto orderDto = new OrderDto();
 		OrderDetailDto orderDetailDto = new OrderDetailDto();
 		List<OrderDetailDto> orderDetailDtoList = new ArrayList<>();
-		List<Location> locations = new ArrayList<>();
-		List<Order> orders = new ArrayList<>();
-		List<Stock> stocks = new ArrayList<>();
 
-		String sDate="28/07/2020";
-		Date date=new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
+		LocalDate date = LocalDate.of(2020, 7, 30);
 
 		orderDto.setStreetAddress("street");
 		orderDto.setCreatedAt(date);
 		orderDto.setCountry("Romania");
 		orderDto.setCity("Trd");
 
-		orderDetailDto.setIdProduct((long) 1);
 		orderDetailDto.setQuantity(100);
 		orderDetailDtoList.add(orderDetailDto);
 		orderDto.setOrderDetails(orderDetailDtoList);

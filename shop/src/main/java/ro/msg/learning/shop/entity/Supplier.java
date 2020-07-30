@@ -1,12 +1,18 @@
 package ro.msg.learning.shop.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "supplier")
 public class Supplier extends BaseEntity {
@@ -20,11 +26,4 @@ public class Supplier extends BaseEntity {
     @Transient
     private List<Product> products=new ArrayList<>();
 
-    public Supplier(){
-
-    }
-
-    public Supplier(String name) {
-        this.name = name;
-    }
 }

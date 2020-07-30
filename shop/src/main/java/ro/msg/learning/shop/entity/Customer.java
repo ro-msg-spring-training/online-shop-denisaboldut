@@ -1,11 +1,15 @@
 package ro.msg.learning.shop.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(exclude = "orders", callSuper = false)
+@ToString(exclude = "orders")
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "customer")
 public class Customer extends BaseEntity {
@@ -23,15 +27,4 @@ public class Customer extends BaseEntity {
     @OneToMany
     private List<Order> orders;
 
-    public Customer(){
-
-    }
-
-    public Customer(String firstName, String lastName, String username, String password, String emailAddress) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.emailAddress = emailAddress;
-    }
 }

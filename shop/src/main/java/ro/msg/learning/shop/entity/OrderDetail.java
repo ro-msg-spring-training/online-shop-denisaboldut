@@ -1,11 +1,17 @@
 package ro.msg.learning.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "order_detail")
 public class OrderDetail extends BaseEntity {
@@ -20,14 +26,4 @@ public class OrderDetail extends BaseEntity {
     private Product product;
 
     private int quantity;
-
-    public OrderDetail(){
-
-    }
-
-    public OrderDetail(Order orderShop, Product product, int quantity) {
-        this.orderShop = orderShop;
-        this.product = product;
-        this.quantity = quantity;
-    }
 }

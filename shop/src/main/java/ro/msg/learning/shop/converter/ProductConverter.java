@@ -1,6 +1,6 @@
 package ro.msg.learning.shop.converter;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ro.msg.learning.shop.dto.ProductDto;
 import ro.msg.learning.shop.entity.Product;
@@ -15,13 +15,12 @@ import java.util.stream.Collectors;
 
 
 @Component
+@RequiredArgsConstructor
 public class ProductConverter {
 
-    @Autowired
-    private  SupplierRepository supplierRepository;
+    private final SupplierRepository supplierRepository;
 
-    @Autowired
-    private  ProductCategoryRepository productCategoryRepository;
+    private final ProductCategoryRepository productCategoryRepository;
 
     public ProductDto convertToDto(Product product){
         ProductDto productDto = new ProductDto();

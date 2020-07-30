@@ -1,12 +1,16 @@
 package ro.msg.learning.shop.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
+
 @Data
+@EqualsAndHashCode(exclude = {"stocks","orderDetails"}, callSuper = false)
+@ToString(exclude = {"stocks","orderDetails"})
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "product")
 public class Product extends BaseEntity {
@@ -47,30 +51,4 @@ public class Product extends BaseEntity {
     @Transient
     private List<OrderDetail> orderDetails;
 
-    public Product(){
-
-    }
-
-    public Product(String name, String description, double price, double weight, ProductCategory productCategory, Supplier supplier, String imageUrl) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.weight = weight;
-        this.productCategory = productCategory;
-        this.supplier = supplier;
-        this.imageUrl = imageUrl;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", weight=" + weight +
-                ", productCategory=" + productCategory +
-                ", supplier=" + supplier +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
-    }
 }

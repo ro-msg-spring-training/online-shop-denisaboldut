@@ -1,6 +1,6 @@
 package ro.msg.learning.shop.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,14 +10,13 @@ import ro.msg.learning.shop.entity.Order;
 import ro.msg.learning.shop.service.OrderService;
 
 @RestController
+@RequiredArgsConstructor
 public class OrderController {
 
-    @Autowired
-    OrderService orderService;
+    public final OrderService orderService;
 
     @PostMapping(path = "/orders", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Order registerNewOrder(@RequestBody OrderDto orderDto){
-        Order order = orderService.createOrder(orderDto);
-        return order;
+        return orderService.createOrder(orderDto);
     }
 }

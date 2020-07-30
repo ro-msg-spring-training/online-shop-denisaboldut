@@ -25,7 +25,7 @@ public class SingleLocation implements LocationStrategy {
 
 
     @Override
-    public List<ProductOrderedDto> selectLocation(OrderDto orderDto) throws Exception {
+    public List<ProductOrderedDto> selectLocation(OrderDto orderDto) throws NoSuchElementException {
         List<ProductOrderedDto> productsOrdered = new ArrayList<>();
 
         List<Product> products = orderDto.getOrderDetails()
@@ -45,14 +45,14 @@ public class SingleLocation implements LocationStrategy {
 
                 boolean containAll = productsInStock.containsAll(products);
 
-                    if (!containAll) {
+                    if (containAll) {
                         ProductOrderedDto productOrderedDto = new ProductOrderedDto();
                         productOrderedDto.setProduct(product);
                         productOrderedDto.setLocation(location);
                         productOrderedDto.setQuantity(stockRepository.findById(location.getId()).get().getQuantity());
                         productsOrdered.add(productOrderedDto);
                     }else{
-                        throw new Exception();
+                        throw new NoSuchElementException();
                     }
                 }
             }
