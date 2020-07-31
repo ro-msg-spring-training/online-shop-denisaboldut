@@ -22,28 +22,24 @@ public class ProductConverter {
 
     private final ProductCategoryRepository productCategoryRepository;
 
-    public ProductDto convertToDto(Product product){
-        ProductDto productDto = new ProductDto();
+    public ProductDto convertToDto(Product product) {
 
-        productDto.setIdProduct(product.getId());
-        productDto.setProductName(product.getName());
-        productDto.setProductDescription(product.getDescription());
-        productDto.setProductWeight(product.getWeight());
-        productDto.setProductPrice(product.getPrice());
-        productDto.setProductImageUrl(product.getImageUrl());
+        return ProductDto.builder().productName(product.getName())
+                .idProduct(product.getId())
+                .productDescription(product.getDescription())
+                .productWeight(product.getWeight())
+                .productPrice(product.getPrice())
+                .productImageUrl(product.getImageUrl())
+                .categoryName(product.getProductCategory().getName())
+                .categoryDescription(product.getProductCategory().getDescription())
+                .supplierName(product.getSupplier().getName())
+                .idCategory(product.getProductCategory().getId())
+                .idSupplier(product.getSupplier().getId())
+                .build();
 
-        productDto.setCategoryDescription(product.getProductCategory().getDescription());
-        productDto.setCategoryName(product.getProductCategory().getName());
-
-        productDto.setSupplierName(product.getSupplier().getName());
-
-        productDto.setIdCategory(product.getProductCategory().getId());
-        productDto.setIdSupplier(product.getSupplier().getId());
-
-        return productDto;
     }
 
-    public List<ProductDto> convertAllToDto(List<Product> products){
+    public List<ProductDto> convertAllToDto(List<Product> products) {
         return products.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
@@ -58,15 +54,15 @@ public class ProductConverter {
         product.setImageUrl(productDto.getProductImageUrl());
 
         Optional<Supplier> supplierOptional;
-        supplierOptional=supplierRepository.findById(productDto.getIdProduct());
-        if(supplierOptional.isPresent()){
+        supplierOptional = supplierRepository.findById(productDto.getIdProduct());
+        if (supplierOptional.isPresent()) {
             Supplier supplier = supplierOptional.get();
             product.setSupplier(supplier);
         }
 
         Optional<ProductCategory> productCategoryOptional;
         productCategoryOptional = productCategoryRepository.findById(productDto.getIdCategory());
-        if(productCategoryOptional.isPresent()){
+        if (productCategoryOptional.isPresent()) {
             ProductCategory productCategory = productCategoryOptional.get();
             product.setProductCategory(productCategory);
         }
